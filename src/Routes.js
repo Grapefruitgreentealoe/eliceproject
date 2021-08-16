@@ -7,9 +7,10 @@ export default function Routes(params) {
         <BrowserRouter>
             <>
                 <Switch>
-                  <Route></Route>
+                  <Route>Hi</Route>
                 </Switch>
             </>
         </BrowserRouter>
     )
 }
+
