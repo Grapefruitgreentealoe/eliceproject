@@ -1,18 +1,19 @@
-import Routes from "./Routes";
+
 import React from "react";
-import styled from 'styled-components'
+import styled from 'styled-components';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import UserInfo from "./components/UserInfo";
 
 function App() {
-  const MainWrapper = styled.div`
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-  `
+
   return (
-    <MainWrapper>
-      <Routes></Routes>
-    </MainWrapper>
+    <Router>
+      <Switch>
+        <Route exact path="/">
+            <UserInfo />
+        </Route></Switch>
+    </Router>
+
   );
 
 }
