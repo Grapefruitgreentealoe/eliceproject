@@ -1,0 +1,6 @@
+{
+    "editor.formatOnSave": true,
+    "terminal.integrated.defaultProfile.osx": "",
+    "javascript.format.enable": false,
+  "prettier.eslintIntegration": true
+}
