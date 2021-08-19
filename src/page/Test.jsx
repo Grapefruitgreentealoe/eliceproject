@@ -8,7 +8,7 @@ export default function Test() {
       이것은 진행 페이지입니다.
       <div>
         <Link to="/example">이전</Link>
-        <Link to="/progress">다음</Link>
+        <Link to="/fin">다음</Link>
       </div>
     </PageLayout>
   );
