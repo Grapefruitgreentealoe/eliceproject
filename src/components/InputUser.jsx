@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./page-layout.css"
 import RadioInput from "./RadioInput";
-import StartButton from "./StartButton";
+import {NextButton} from "./Buttons";
 
 function InputUser() {
   const [username, setName] = useState("");
@@ -33,7 +33,7 @@ function InputUser() {
     name="questionNumber1" onClick={handleChange} 
 
 />
-      <StartButton state={state} username={username} presentURL="/" nextURL="/example"/>
+      <NextButton state={state} username={username} presentURL="/" nextURL="/example" label="검사시작"/>
     </div>
   );
 }

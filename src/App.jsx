@@ -11,19 +11,19 @@ function App() {
     return ( 
         <BrowserRouter>
           <Switch>
-            <Route path="/result">
+            <Route exact path="/result">
               <Result/>
             </Route>
-            <Route path="/fin">
+            <Route exact path="/fin">
               <TestFin/>
             </Route>
-            <Route path="/example">
+            <Route exact path="/example">
               <TestSample />
             </Route>
-            <Route path="/progress">
+            <Route exact path="/progress">
               <Test/>
             </Route>
-            <Route path="/">
+            <Route exact path="/">
               <UserInfo />
             </Route>
           </Switch>

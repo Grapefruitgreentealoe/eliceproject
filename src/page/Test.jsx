@@ -1,6 +1,10 @@
-import React from "react";
+import React,{useState} from "react";
 import { Link } from "react-router-dom";
 import PageLayout from "../components/PageLayout";
+import { PreviousButton, NextButton } from "../components/Buttons";
+import "../components/page-layout.css"
+
+
 
 //get으로 테스트 문항 가져오기
 //상태관리 포스트로 보낼형식으로 할것
@@ -21,12 +25,16 @@ Content-Type: application/json
 }
 */
 export default function Test() {
+  const [state, setState] = useState("")
   return (
     <PageLayout title="Test Progress">
       이것은 진행 페이지입니다.
       <div>
-        <Link to="/example">이전</Link>
-        <Link to="/fin">다음</Link>
+        <div className="navigation">
+        <PreviousButton state="1" username="hi" presentURL="/progress" previousURL="/example" label="이전" />
+          <NextButton state="1" username="hi" presentURL="/progress" nextURL="/fin" label="다음" />
+          </div>
+
       </div>
     </PageLayout>
   );

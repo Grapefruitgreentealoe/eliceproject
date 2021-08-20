@@ -2,7 +2,8 @@ import React ,{useState} from "react";
 import { Link } from "react-router-dom";
 import PageLayout from "../components/PageLayout";
 import RadioInput from "../components/RadioInput";
-import StartButton from "../components/StartButton";
+import { NextButton } from "../components/Buttons";
+import '../components/page-layout.css';
 export default function TestExample() {
   const[state,setState]=useState("")
 
@@ -35,8 +36,9 @@ export default function TestExample() {
           name="example"
         />
       </div>
-
-      <StartButton state={state} username={true} presentURL="/example" nextURL="/progress" />
+          <div className="navigation">
+      <NextButton state={state} username="hi" presentURL="/example" nextURL="/progress" label="검사시작"/>
+      </div>
     </PageLayout>
   );
 }
