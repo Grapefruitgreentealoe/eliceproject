@@ -11,7 +11,7 @@ function answerReducer(state,action){
             todo.id === action.id) ? {}: todo};
         
     }
-}
+
 
 const AnswerStateContext = createContext();
 const AnswerDispatchContext = createContext();

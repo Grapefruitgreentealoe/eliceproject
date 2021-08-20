@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import PageLayout from "../components/PageLayout";
-
+//post로 결과 가져오기
 export default function Result() {
   return (
     <PageLayout title="Test Progress">
