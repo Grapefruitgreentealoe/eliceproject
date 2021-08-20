@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./page-layout.css"
+import RadioInput from "./RadioInput";
 function InputUser() {
   const [username, setName] = useState("");
   const [state, setState] = useState("");
@@ -24,22 +25,12 @@ function InputUser() {
         onChange={onChange}
         value={username}
       />
-      <label>남자</label>
-      <input
-        type="radio"
-        defaultChecked={"1" === state}
-        value="1"
-        name="questionNumber1"
-        onClick={handleChange}
-      />
-      <label>여자</label>
-      <input
-        type="radio"
-        defaultChecked={"2" === state}
-        value="2"
-        name="questionNumber1"
-        onClick={handleChange}
-      />
+      
+      <RadioInput values={
+    [{label:"남자", num:"1"},{label:"여자",num:"2"}]} 
+    name="questionNumber1" onClick={handleChange} 
+
+/>
       <Link
         to={state && username ? "/example" : "/"}
         style={{ color: "white" }}
