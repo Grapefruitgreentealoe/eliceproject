@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import "./page-layout.css"
 
@@ -24,7 +24,7 @@ export function PreviousButton({state,username,previousURL,presentURL,label}){
         
       <nav className="navigation">
         <Link
-        to={state && username ? previousURL : presentURL}
+        to={previousURL}
         style={{ color: "white" }}
       >
           <button onClick={() => console.log(state, username)}>{label}</button>

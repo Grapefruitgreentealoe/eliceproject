@@ -1,5 +1,5 @@
 import React,{useState} from "react";
-import { Link } from "react-router-dom";
+import RadioInput from "../components/RadioInput";
 import PageLayout from "../components/PageLayout";
 import { PreviousButton, NextButton } from "../components/Buttons";
 import "../components/page-layout.css"
@@ -26,16 +26,36 @@ Content-Type: application/json
 */
 export default function Test() {
   const [state, setState] = useState("")
+
+  const handleChange = (e) => {
+    setState(e.target.value);
+    console.log(e.target.value);
+  };
   return (
     <PageLayout title="Test Progress">
       이것은 진행 페이지입니다.
-      <div>
+        <div className="question-box">
+        두개 가치 중에 자신에게 더 중요한 가치를 선택하세요.
+        <RadioInput
+          values={[
+            {
+              label: "능력발휘",
+              num: 1,
+            },
+            {
+              label: "자율성",
+              num: 2,
+            },
+          ]}
+          onClick={handleChange}
+          name="example"
+        />
+      </div>
         <div className="navigation">
-        <PreviousButton state="1" username="hi" presentURL="/progress" previousURL="/example" label="이전" />
-          <NextButton state="1" username="hi" presentURL="/progress" nextURL="/fin" label="다음" />
+        <PreviousButton state={state} username="hi" presentURL="/progress" previousURL="/example" label="이전" />
+          <NextButton state={state} username="hi" presentURL="/progress" nextURL="/fin" label="다음" />
           </div>
 
-      </div>
     </PageLayout>
   );
 }
