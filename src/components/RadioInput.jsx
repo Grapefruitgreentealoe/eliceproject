@@ -1,7 +1,7 @@
 
 import React from "react";
 
-export default function RadioInput({onClick,label,name,values,state}){
+export default function RadioInput({onClick,name,values,state}){
     return(
         <div>
             {

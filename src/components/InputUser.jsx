@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./page-layout.css"
 import RadioInput from "./RadioInput";
+import StartButton from "./StartButton";
+
 function InputUser() {
   const [username, setName] = useState("");
   const [state, setState] = useState("");
@@ -31,14 +33,7 @@ function InputUser() {
     name="questionNumber1" onClick={handleChange} 
 
 />
-      <Link
-        to={state && username ? "/example" : "/"}
-        style={{ color: "white" }}
-      >
-        <nav className="navigation">
-          <button>검사시작</button>
-        </nav>
-      </Link>
+      <StartButton state={state} username={username} presentURL="/" nextURL="/example"/>
     </div>
   );
 }
