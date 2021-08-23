@@ -39,9 +39,17 @@ function Questions() {
   const [chkstate, setChkstate] = useState(chkarr);
 
   const handleChange = (e, user) => {
-    chkarr[user.qitemNo - 1] = e.target.value;
-    setChkstate(chkarr);
-    console.log(chkstate);
+    console.log('[handleChange]e, user: ', e, user);
+    // chkarr[user.qitemNo - 1] = Numbere.target.value;
+
+    setChkstate((state) => {
+      const newArr = [...state];
+      newArr[user.qitemNo - 1] = Number(e.target.value);
+      return newArr;
+    });
+
+    // setChkstate(chkarr);
+    // console.log(chkstate);
   };
 
   //event와 컴포넌트의 props를 같이 넘겨줄 수 있나요?
@@ -69,8 +77,10 @@ function Questions() {
   if (error) return <div>에러가 발생했습니다.</div>;
   if (!users) return null;
 
+  console.log('chkstate : ', chkstate);
+
   return users.map((user, index) => (
-    <ul>
+    <ul key={index}>
       {index >= 0 && index <= 4 ? (
         <li key={user.qitemNo}>
           {user.question}
@@ -78,9 +88,18 @@ function Questions() {
             <>
               <QRadioInput
                 name="question"
-                values={[user.answer01, user.answer02]}
-                onClick={(e) => (user, e) => handleChange(e, user)}
-                chked={chkarr[index]}
+                values={[
+                  {
+                    label: user.answer01,
+                    value: 1,
+                  },
+                  {
+                    label: user.answer02,
+                    value: 2,
+                  },
+                ]}
+                onClick={(e) => handleChange(e, user)}
+                chked={chkstate[index]}
               />
             </>
           </p>

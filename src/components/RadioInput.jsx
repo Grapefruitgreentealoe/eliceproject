@@ -18,21 +18,24 @@ export function RadioInput({ onClick, name, values, state }) {
     </div>
   );
 }
-export function QRadioInput({ onClick, name, values, chked }) {
+
+export function QRadioInput({ onClick, values, chked }) {
   return (
     <div>
-      {values.map((value) => (
-        <div key={value.qitemNo}>
-          <label>{value}</label>
-          <input
-            name={name}
-            defaultChecked={value === chked}
-            onClick={onClick}
-            type="radio"
-            value={value}
-          />
-        </div>
-      ))}
+      {React.Children.toArray(
+        values.map((value) => (
+          <div>
+            <label>{value.label}</label>
+            <input
+              name={value.name}
+              onChange={onClick}
+              type="radio"
+              value={value.value}
+              checked={value.value === chked}
+            />
+          </div>
+        )),
+      )}
     </div>
   );
 }
