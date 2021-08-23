@@ -1,11 +1,11 @@
-import React ,{useState} from "react";
+import React, { useState } from 'react';
 
-import PageLayout from "../components/PageLayout";
-import RadioInput from "../components/RadioInput";
-import { NextButton } from "../components/Buttons";
+import PageLayout from '../components/PageLayout';
+import { RadioInput } from '../components/RadioInput';
+import { NextButton } from '../components/Buttons';
 import '../components/page-layout.css';
 export default function TestExample() {
-  const[state,setState]=useState("")
+  const [state, setState] = useState('');
 
   const handleChange = (e) => {
     setState(e.target.value);
@@ -24,11 +24,11 @@ export default function TestExample() {
         <RadioInput
           values={[
             {
-              label: "능력발휘",
+              label: '능력발휘',
               num: 1,
             },
             {
-              label: "자율성",
+              label: '자율성',
               num: 2,
             },
           ]}
@@ -36,8 +36,14 @@ export default function TestExample() {
           name="example"
         />
       </div>
-          <div className="navigation">
-      <NextButton state={state} username="hi" presentURL="/example" nextURL="/progress" label="검사시작"/>
+      <div className="navigation">
+        <NextButton
+          state={state}
+          username="hi"
+          presentURL="/example"
+          nextURL="/progress"
+          label="검사시작"
+        />
       </div>
     </PageLayout>
   );

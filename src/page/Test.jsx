@@ -1,10 +1,8 @@
-import React,{useState} from "react";
-import RadioInput from "../components/RadioInput";
-import PageLayout from "../components/PageLayout";
-import { PreviousButton, NextButton } from "../components/Buttons";
-import "../components/page-layout.css"
-
-
+import React, { useState } from 'react';
+import PageLayout from '../components/PageLayout';
+import { PreviousButton, NextButton } from '../components/Buttons';
+import '../components/page-layout.css';
+import Questions from '../Questions';
 
 //get으로 테스트 문항 가져오기
 //상태관리 포스트로 보낼형식으로 할것
@@ -25,7 +23,7 @@ Content-Type: application/json
 }
 */
 export default function Test() {
-  const [state, setState] = useState("")
+  const [state, setState] = useState('');
 
   const handleChange = (e) => {
     setState(e.target.value);
@@ -34,28 +32,25 @@ export default function Test() {
   return (
     <PageLayout title="Test Progress">
       이것은 진행 페이지입니다.
-        <div className="question-box">
-        두개 가치 중에 자신에게 더 중요한 가치를 선택하세요.
-        <RadioInput
-          values={[
-            {
-              label: "능력발휘",
-              num: 1,
-            },
-            {
-              label: "자율성",
-              num: 2,
-            },
-          ]}
-          onClick={handleChange}
-          name="example"
+      <div className="question-box">
+        <Questions />
+      </div>
+      <div className="navigation">
+        <PreviousButton
+          state={state}
+          username="hi"
+          presentURL="/progress"
+          previousURL="/example"
+          label="이전"
+        />
+        <NextButton
+          state={state}
+          username="hi"
+          presentURL="/progress"
+          nextURL="/fin"
+          label="다음"
         />
       </div>
-        <div className="navigation">
-        <PreviousButton state={state} username="hi" presentURL="/progress" previousURL="/example" label="이전" />
-          <NextButton state={state} username="hi" presentURL="/progress" nextURL="/fin" label="다음" />
-          </div>
-
     </PageLayout>
   );
 }

@@ -1,21 +1,20 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import "./page-layout.css"
-import RadioInput from "./RadioInput";
-import {NextButton} from "./Buttons";
+import './page-layout.css';
+import { RadioInput } from './RadioInput';
+import { NextButton } from './Buttons';
 
 function InputUser() {
-  const [username, setName] = useState("");
-  const [state, setState] = useState("");
+  const [username, setName] = useState('');
+  const [state, setState] = useState('');
 
   const handleChange = (e) => {
-    setState(e.target.value)
-    console.log(e.target.value)
+    setState(e.target.value);
+    console.log(e.target.value);
   };
 
   const onChange = (e) => {
     setName(e.target.value);
-    
   };
 
   return (
@@ -27,13 +26,22 @@ function InputUser() {
         onChange={onChange}
         value={username}
       />
-      
-      <RadioInput values={
-    [{label:"남자", num:"1"},{label:"여자",num:"2"}]} 
-    name="questionNumber1" onClick={handleChange} 
 
-/>
-      <NextButton state={state} username={username} presentURL="/" nextURL="/example" label="검사시작"/>
+      <RadioInput
+        values={[
+          { label: '남자', num: '1' },
+          { label: '여자', num: '2' },
+        ]}
+        name="questionNumber1"
+        onClick={handleChange}
+      />
+      <NextButton
+        state={state}
+        username={username}
+        presentURL="/"
+        nextURL="/example"
+        label="검사시작"
+      />
     </div>
   );
 }
