@@ -1,41 +1,21 @@
-import React, { useReducer, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { QRadioInput } from './components/RadioInput';
+import { useAsync } from 'react-async';
 
-function reducer(state, action) {
-  switch (action.type) {
-    case 'LOADING':
-      return {
-        loading: true,
-        data: null,
-        error: null,
-      };
-    case 'SUCCESS':
-      return {
-        loading: false,
-        data: action.data,
-        error: null,
-      };
-    case 'ERROR':
-      return {
-        loading: false,
-        data: null,
-        error: action.error,
-      };
-    default:
-      throw new Error(`Unhandled action type: ${action.type}`);
-  }
+
+
+
+
+async function getQuestion() {
+  const response = await axios.get(
+    'https://inspct.career.go.kr/openapi/test/questions?apikey=4848423aeee0be0d33a5f674f4383583&q=6',
+  );
+
+  return response.data.RESULT;
 }
-
-const chkarr = [0, 0, 0, 0, 0];
-
 function Questions() {
-  const [state, dispatch] = useReducer(reducer, {
-    loading: false,
-    data: null,
-    error: null,
-  });
-
+  const chkarr = [0, 0, 0, 0, 0];
   const [chkstate, setChkstate] = useState(chkarr);
 
   const handleChange = (e, user) => {
@@ -46,57 +26,65 @@ function Questions() {
     });
   };
 
-  const fetchUsers = async () => {
-    dispatch({ type: 'LOADING' });
-    try {
-      //요청이 시작 될 때는 error users 초기화 하기
-      const response = await axios.get(
-        'https://inspct.career.go.kr/openapi/test/questions?apikey=4848423aeee0be0d33a5f674f4383583&q=6',
-      );
-      dispatch({ type: 'SUCCESS', data: response.data.RESULT });
-    } catch (e) {
-      dispatch({ type: 'ERROR', error: e });
-    }
-  };
+  // eslint-disable-next-line
+  const [page, setPage] = useState(0);
+  // eslint-disable-next-line
+  const {
+    loading,
+    data: questions,
+    error,
+    run,
+  } = useAsync({
+    deferFn: getQuestion,
+  });
 
   useEffect(() => {
-    fetchUsers();
-  }, []);
-
-  const { loading, data: users, error } = state;
+    run();
+  }, [page]);
 
   if (loading) return <div>로딩중..</div>;
   if (error) return <div>에러가 발생했습니다.</div>;
-  if (!users) return null;
+  if (!questions)
+    return <button onClick={() => setPage(page + 1)}>불러오기</button>;
 
-  console.log('chkstate : ', chkstate);
-
-  return users.map((user, index) => (
-    <ul key={index}>
-      {index >= 0 && index <= 4 ? (
-        <li key={user.qitemNo}>
-          {user.question}
+  return (
+    <>
+  {questions.map((question, index) => (
+    <ul>
+      {index >= page * 5 && index <= page * 5 + 4 ? (
+        <li key={question.qitemNo}>
+          {question.question}
           <p>
             <QRadioInput
               name="question"
               values={[
                 {
-                  label: user.answer01,
+                  label: question.answer01,
                   value: 1,
                 },
                 {
-                  label: user.answer02,
+                  label: question.answer02,
                   value: 2,
                 },
               ]}
-              onClick={(e) => handleChange(e, user)}
+              onClick={(e) => handleChange(e, question)}
               chked={chkstate[index]}
             />
           </p>
         </li>
       ) : null}
     </ul>
-  ));
+  ))}
+    {page != questions.length / 4 - 2 ? (
+        <button onClick={() => setPage(page + 1)}>다음</button>
+      ) : null}
+      {page > 0 ? (
+        <button onClick={() => setPage(page - 1)}>이전</button>
+      ) : null}
+      {page == 0 ? <button onClick={run}>다시 불러오기</button> : null
+      }
+      </>)
+  
 }
 
 export default Questions;
