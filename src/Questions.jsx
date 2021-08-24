@@ -32,6 +32,8 @@ function Questions() {
 
       if (chkstate.length == page * 5 + 4 || chkstate.length == len) {
         setAllChked(true);
+      } else {
+        setAllChked(false);
       }
       console.log(newArr, chkstate, allchked);
       return newArr;
@@ -43,7 +45,6 @@ function Questions() {
     if (allchked) {
       setPage(page + 1);
     }
-    setAllChked(false);
   };
 
   // const handlePrevButton = (allchked) => {
@@ -65,6 +66,7 @@ function Questions() {
 
   return (
     <>
+      {page}
       {questions.map((question, index) => (
         <ul>
           {index >= page * 5 && index <= page * 5 + 4 ? (
