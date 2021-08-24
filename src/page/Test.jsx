@@ -33,7 +33,7 @@ export default function Test() {
     <PageLayout title="Test Progress">
       이것은 진행 페이지입니다.
       <div className="question-box">
-        <Questions />
+        <Questions onClick={handleChange}/>
       </div>
       <div className="navigation">
         <PreviousButton

@@ -4,9 +4,6 @@ import { QRadioInput } from './components/RadioInput';
 import { useAsync } from 'react-async';
 
 
-
-
-
 async function getQuestion() {
   const response = await axios.get(
     'https://inspct.career.go.kr/openapi/test/questions?apikey=4848423aeee0be0d33a5f674f4383583&q=6',
@@ -14,21 +11,8 @@ async function getQuestion() {
 
   return response.data.RESULT;
 }
-function Questions() {
-  const chkarr = [0, 0, 0, 0, 0];
-  const [chkstate, setChkstate] = useState(chkarr);
+function Questions({onClick}) {
 
-  const handleChange = (e, user) => {
-    setChkstate((state) => {
-      const newArr = [...state];
-      newArr[user.qitemNo - 1] = Number(e.target.value);
-      return newArr;
-    });
-  };
-
-  // eslint-disable-next-line
-  const [page, setPage] = useState(0);
-  // eslint-disable-next-line
   const {
     loading,
     data: questions,
@@ -37,6 +21,24 @@ function Questions() {
   } = useAsync({
     deferFn: getQuestion,
   });
+  const len = questions ? questions.length : 0;
+  const chkarr = new Array(len).fill(0);
+
+  const [chkstate, setChkstate] = useState(chkarr);
+
+  const handleChange = (e, question) => {
+    setChkstate((state) => {
+      const newArr = [...state];
+      newArr[question.qitemNo - 1] = Number(e.target.value);
+      console.log(newArr);
+      return newArr;
+    });
+  };
+
+  // eslint-disable-next-line
+  const [page, setPage] = useState(0);
+  // eslint-disable-next-line
+  
 
   useEffect(() => {
     run();
