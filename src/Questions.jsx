@@ -10,14 +10,14 @@ async function getQuestion() {
 
   return response.data.RESULT;
 }
-function Questions({ onClick }) {
+function Questions() {
   const {
     loading,
     data: questions,
     error,
-    run,
+    reload,
   } = useAsync({
-    deferFn: getQuestion,
+    promiseFn: getQuestion,
   });
   const len = questions ? questions.length : 0;
   const chkarr = new Array(len).fill(0);
@@ -29,31 +29,39 @@ function Questions({ onClick }) {
     setChkstate((state) => {
       const newArr = [...state];
       newArr[question.qitemNo - 1] = Number(e.target.value);
-      console.log(newArr);
-      if (Math.min(chkarr.slice(page * 5, page * 5 + 5)) !== 0) {
+
+      if (chkstate.length == page * 5 + 4 || chkstate.length == len) {
         setAllChked(true);
       }
+      console.log(newArr, chkstate, allchked);
       return newArr;
     });
   };
 
-  const handleNextButton = () => {
-    setPage(page + 1);
+  const handleNextButton = (e) => {
+    console.log(allchked, page, e.target.state);
+    if (allchked) {
+      setPage(page + 1);
+    }
     setAllChked(false);
   };
+
+  // const handlePrevButton = (allchked) => {
+  //   console.log(allchked, page);
+  //   setPage(page - 1);
+  // };
 
   // eslint-disable-next-line
   const [page, setPage] = useState(0);
   // eslint-disable-next-line
 
   useEffect(() => {
-    run();
+    reload();
   }, [page]);
 
   if (loading) return <div>로딩중..</div>;
   if (error) return <div>에러가 발생했습니다.</div>;
-  if (!questions)
-    return <button onClick={() => setPage(page + 1)}>불러오기</button>;
+  if (!questions) return null;
 
   return (
     <>
@@ -84,12 +92,13 @@ function Questions({ onClick }) {
         </ul>
       ))}
       {page != questions.length / 4 - 2 ? (
-        <button onClick={allchked ? handleNextButton() : null}>다음</button>
+        <button onClick={handleNextButton} state={allchked}>
+          다음
+        </button>
       ) : null}
       {page > 0 ? (
         <button onClick={() => setPage(page - 1)}>이전</button>
       ) : null}
-      {page == 0 ? <button onClick={run}>다시 불러오기</button> : null}
     </>
   );
 }
