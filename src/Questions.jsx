@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { QRadioInput } from './components/RadioInput';
 import { useAsync } from 'react-async';
+import { NextButton, PreviousButton } from './components/Buttons';
 
 async function getQuestion() {
   const response = await axios.get(
@@ -73,7 +74,12 @@ function Questions() {
       page,
     );
 
-    setAllChked(currentCheckStateLength === 5);
+    setAllChked(
+      currentCheckStateLength === 5 ||
+        (undefined !== questions &&
+          page == questions.length / 4 - 2 &&
+          currentCheckStateLength == 3),
+    );
   }, [page, reload, chkstate]);
 
   if (loading) return <div>로딩중..</div>;
@@ -115,9 +121,21 @@ function Questions() {
           다음
         </button>
       ) : null}
+      {page == questions.length / 4 - 2 ? (
+        <NextButton
+          state={allchked}
+          username="hi"
+          presentURL="/progress"
+          nextURL="/fin"
+          label="결과보기"
+        />
+      ) : null}
 
       {page > 0 ? (
         <button onClick={() => setPage(page - 1)}>이전</button>
+      ) : null}
+      {page == 0 ? (
+        <PreviousButton previousURL="/example" label="이전" />
       ) : null}
     </>
   );
