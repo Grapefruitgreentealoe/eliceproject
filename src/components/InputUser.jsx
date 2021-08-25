@@ -3,8 +3,10 @@ import React, { useEffect, useState } from 'react';
 import './page-layout.css';
 import { RadioInput } from './RadioInput';
 import { NextButton } from './Buttons';
+import { useAnswerDispatch } from '../answerContext';
 
 function InputUser() {
+  const dispatch = useAnswerDispatch();
   const [username, setName] = useState('');
   const [state, setState] = useState('');
 
@@ -19,7 +21,11 @@ function InputUser() {
 
   useEffect(() => {
     console.log('rendering...');
-  });
+    if (username && state) {
+      dispatch({ type: 'USERINFO', payload: [username, state] });
+      console.log(state, username);
+    }
+  }, [username, state]);
 
   return (
     <div className="container">

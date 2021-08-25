@@ -7,6 +7,8 @@ import './components/page-layout.css';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
+import { useAnswerDispatch } from './answerContext';
+
 async function getQuestion() {
   const response = await axios.get(
     'https://inspct.career.go.kr/openapi/test/questions?apikey=4848423aeee0be0d33a5f674f4383583&q=6',
@@ -30,6 +32,7 @@ function Questions() {
 
   const [chkstate, setChkstate] = useState(chkarr);
   const [allchked, setAllChked] = useState(false);
+  const dispatch = useAnswerDispatch();
 
   // eslint-disable-next-line
   const [page, setPage] = useState(0);
@@ -40,14 +43,9 @@ function Questions() {
     setChkstate((state) => {
       const newArr = [...state];
       newArr[question.qitemNo - 1] = Number(e.target.value);
-
-      // 이시점
-      // newArr - 5개 chkstate - 4개
       const result = newArr.length == page * 5 + 5 || newArr.length == len;
       console.log('[handleChange] result :', result);
-
       setAllChked(result);
-      // console.log(newArr, chkstate, allchked);
       return newArr;
     });
     setPercentNum(100 / questions.length + percentnum);
@@ -59,11 +57,6 @@ function Questions() {
       setPage(page + 1);
     }
   };
-
-  // const handlePrevButton = (allchked) => {
-  //   console.log(allchked, page);
-  //   setPage(page - 1);
-  // };
 
   useEffect(() => {
     reload();
@@ -78,6 +71,10 @@ function Questions() {
       chkstate,
       page,
     );
+    if (len && chkstate.length == len) {
+      dispatch({ type: 'TESTDATA_SEND', payload: chkstate });
+      console.log('dispatch data', chkstate);
+    }
 
     setAllChked(
       currentCheckStateLength === 5 ||

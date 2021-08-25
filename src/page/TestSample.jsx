@@ -6,7 +6,8 @@ import { NextButton } from '../components/Buttons';
 import '../components/page-layout.css';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import 'bootstrap/dist/css/bootstrap.min.css';
-export default function TestExample() {
+
+function TestExample() {
   const [state, setState] = useState('');
 
   const handleChange = (e) => {
@@ -65,3 +66,5 @@ export default function TestExample() {
     </>
   );
 }
+
+export default React.memo(TestExample);
