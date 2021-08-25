@@ -35,22 +35,6 @@ export default function Test() {
       <div className="question-box">
         <Questions />
       </div>
-      <div className="navigation">
-        <PreviousButton
-          state={state}
-          username="hi"
-          presentURL="/progress"
-          previousURL="/example"
-          label="이전"
-        />
-        <NextButton
-          state={state}
-          username="hi"
-          presentURL="/progress"
-          nextURL="/fin"
-          label="다음"
-        />
-      </div>
     </PageLayout>
   );
 }

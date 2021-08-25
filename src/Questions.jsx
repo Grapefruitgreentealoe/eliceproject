@@ -10,6 +10,7 @@ async function getQuestion() {
 
   return response.data.RESULT;
 }
+
 function Questions() {
   const {
     loading,
@@ -19,23 +20,29 @@ function Questions() {
   } = useAsync({
     promiseFn: getQuestion,
   });
+
   const len = questions ? questions.length : 0;
   const chkarr = new Array(len).fill(0);
 
   const [chkstate, setChkstate] = useState(chkarr);
   const [allchked, setAllChked] = useState(false);
 
+  // eslint-disable-next-line
+  const [page, setPage] = useState(0);
+  // eslint-disable-next-line
+
   const handleChange = (e, question) => {
     setChkstate((state) => {
       const newArr = [...state];
       newArr[question.qitemNo - 1] = Number(e.target.value);
 
-      if (chkstate.length == page * 5 + 4 || chkstate.length == len) {
-        setAllChked(true);
-      } else {
-        setAllChked(false);
-      }
-      console.log(newArr, chkstate, allchked);
+      // 이시점
+      // newArr - 5개 chkstate - 4개
+      const result = newArr.length == page * 5 + 5 || newArr.length == len;
+      console.log('[handleChange] result :', result);
+
+      setAllChked(result);
+      // console.log(newArr, chkstate, allchked);
       return newArr;
     });
   };
@@ -52,13 +59,22 @@ function Questions() {
   //   setPage(page - 1);
   // };
 
-  // eslint-disable-next-line
-  const [page, setPage] = useState(0);
-  // eslint-disable-next-line
-
   useEffect(() => {
     reload();
-  }, [page]);
+
+    const currentCheckStateLength = chkstate
+      .slice(page * 5, (page + 1) * 5)
+      .filter((el) => !!el).length;
+
+    console.log(
+      '[useEffect]currentCheckStateLength: ',
+      currentCheckStateLength,
+      chkstate,
+      page,
+    );
+
+    setAllChked(currentCheckStateLength === 5);
+  }, [page, reload, chkstate]);
 
   if (loading) return <div>로딩중..</div>;
   if (error) return <div>에러가 발생했습니다.</div>;
@@ -67,9 +83,9 @@ function Questions() {
   return (
     <>
       {page}
-      {questions.map((question, index) => (
-        <ul>
-          {index >= page * 5 && index <= page * 5 + 4 ? (
+      <ul>
+        {questions.map((question, index) =>
+          index >= page * 5 && index <= page * 5 + 4 ? (
             <li key={question.qitemNo}>
               {question.question}
               <p>
@@ -90,14 +106,16 @@ function Questions() {
                 />
               </p>
             </li>
-          ) : null}
-        </ul>
-      ))}
+          ) : null,
+        )}
+      </ul>
+
       {page != questions.length / 4 - 2 ? (
         <button onClick={handleNextButton} state={allchked}>
           다음
         </button>
       ) : null}
+
       {page > 0 ? (
         <button onClick={() => setPage(page - 1)}>이전</button>
       ) : null}
