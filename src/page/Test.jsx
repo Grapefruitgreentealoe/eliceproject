@@ -32,9 +32,7 @@ export default function Test() {
   return (
     <PageLayout title="Test Progress">
       이것은 진행 페이지입니다.
-      <div className="question-box">
-        <Questions />
-      </div>
+      <Questions />
     </PageLayout>
   );
 }

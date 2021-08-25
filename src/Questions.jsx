@@ -3,7 +3,9 @@ import axios from 'axios';
 import { QRadioInput } from './components/RadioInput';
 import { useAsync } from 'react-async';
 import { NextButton, PreviousButton } from './components/Buttons';
-
+import './components/page-layout.css';
+import ProgressBar from 'react-bootstrap/ProgressBar';
+import 'bootstrap/dist/css/bootstrap.min.css';
 async function getQuestion() {
   const response = await axios.get(
     'https://inspct.career.go.kr/openapi/test/questions?apikey=4848423aeee0be0d33a5f674f4383583&q=6',
@@ -30,6 +32,7 @@ function Questions() {
 
   // eslint-disable-next-line
   const [page, setPage] = useState(0);
+  const [percentnum, setPercentNum] = useState(0);
   // eslint-disable-next-line
 
   const handleChange = (e, question) => {
@@ -46,6 +49,7 @@ function Questions() {
       // console.log(newArr, chkstate, allchked);
       return newArr;
     });
+    setPercentNum(100 / questions.length + percentnum);
   };
 
   const handleNextButton = (e) => {
@@ -88,11 +92,14 @@ function Questions() {
 
   return (
     <>
-      {page}
+      {Math.ceil(percentnum)}
+      <div className="progressBar">
+        <ProgressBar now={percentnum} />
+      </div>
       <ul>
         {questions.map((question, index) =>
           index >= page * 5 && index <= page * 5 + 4 ? (
-            <li key={question.qitemNo}>
+            <li key={question.qitemNo} className="question-box">
               {question.question}
               <p>
                 <QRadioInput
