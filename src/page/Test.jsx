@@ -30,8 +30,7 @@ export default function Test() {
     console.log(e.target.value);
   };
   return (
-    <PageLayout title="Test Progress">
-      이것은 진행 페이지입니다.
+    <PageLayout title="검사진행">
       <Questions />
     </PageLayout>
   );

@@ -5,7 +5,7 @@ import { NextButton } from '../components/Buttons';
 //post로 결과 가져오기
 export default function Result() {
   return (
-    <PageLayout title="Test Progress">
+    <PageLayout title="직업가치관검사 결과표">
       결과 페이지입니다.
       <div className="navigation">
         <NextButton

@@ -6,6 +6,7 @@ import { NextButton, PreviousButton } from './components/Buttons';
 import './components/page-layout.css';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from 'react-bootstrap/Button';
 async function getQuestion() {
   const response = await axios.get(
     'https://inspct.career.go.kr/openapi/test/questions?apikey=4848423aeee0be0d33a5f674f4383583&q=6',
@@ -92,16 +93,26 @@ function Questions() {
 
   return (
     <>
-      {Math.ceil(percentnum)}
+      {`${Math.ceil(percentnum)}%`}
+
       <div className="progressBar">
-        <ProgressBar now={percentnum} />
+        <div className="pgrb">
+          <ProgressBar now={percentnum} />
+        </div>
       </div>
-      <ul>
+      <ul
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          flexDirection: 'column',
+        }}
+      >
         {questions.map((question, index) =>
           index >= page * 5 && index <= page * 5 + 4 ? (
             <li key={question.qitemNo} className="question-box">
+              {`Q${question.qitemNo}.`}
               {question.question}
-              <p>
+              <p style={{ textAlign: 'center' }}>
                 <QRadioInput
                   name="question"
                   values={[
@@ -122,28 +133,36 @@ function Questions() {
           ) : null,
         )}
       </ul>
+      <nav className="navigation">
+        {page != questions.length / 4 - 2 ? (
+          <Button
+            variant={allchked ? 'outline-primary' : 'secondary'}
+            onClick={handleNextButton}
+            state={allchked}
+            disabled={allchked ? false : true}
+          >
+            다음
+          </Button>
+        ) : null}
+        {page == questions.length / 4 - 2 ? (
+          <NextButton
+            state={allchked}
+            username="hi"
+            presentURL="/progress"
+            nextURL="/fin"
+            label="결과보기"
+          />
+        ) : null}
 
-      {page != questions.length / 4 - 2 ? (
-        <button onClick={handleNextButton} state={allchked}>
-          다음
-        </button>
-      ) : null}
-      {page == questions.length / 4 - 2 ? (
-        <NextButton
-          state={allchked}
-          username="hi"
-          presentURL="/progress"
-          nextURL="/fin"
-          label="결과보기"
-        />
-      ) : null}
-
-      {page > 0 ? (
-        <button onClick={() => setPage(page - 1)}>이전</button>
-      ) : null}
-      {page == 0 ? (
-        <PreviousButton previousURL="/example" label="이전" />
-      ) : null}
+        {page > 0 ? (
+          <Button variant="outline-primary" onClick={() => setPage(page - 1)}>
+            이전
+          </Button>
+        ) : null}
+        {page == 0 ? (
+          <PreviousButton previousURL="/example" label="이전" />
+        ) : null}
+      </nav>
     </>
   );
 }

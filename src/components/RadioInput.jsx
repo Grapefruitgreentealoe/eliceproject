@@ -4,8 +4,7 @@ export function RadioInput({ onClick, name, values, state }) {
   return (
     <div>
       {values.map((value) => (
-        <div key={value.num}>
-          {value.label}
+        <div key={value.num} style={{ marginTop: '10px' }}>
           <input
             name={name}
             defaultChecked={value.num === state}
@@ -13,6 +12,7 @@ export function RadioInput({ onClick, name, values, state }) {
             type="radio"
             value={value.num}
           />
+          {value.label}
         </div>
       ))}
     </div>
@@ -21,11 +21,16 @@ export function RadioInput({ onClick, name, values, state }) {
 
 export function QRadioInput({ onClick, values, chked }) {
   return (
-    <div>
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'space-around',
+        color: 'black',
+      }}
+    >
       {React.Children.toArray(
         values.map((value) => (
-          <div>
-            <label>{value.label}</label>
+          <div style={{ marginTop: '10px' }}>
             <input
               name={value.name}
               onChange={onClick}
@@ -33,10 +38,10 @@ export function QRadioInput({ onClick, values, chked }) {
               value={value.value}
               checked={value.value === chked}
             />
+            <label>{value.label}</label>
           </div>
         )),
       )}
     </div>
   );
 }
-//라디오 버튼 한개밖에 선택이 되지 않습니다.

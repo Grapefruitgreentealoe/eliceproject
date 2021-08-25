@@ -22,7 +22,7 @@ function InputUser() {
   });
 
   return (
-    <div>
+    <div className="container">
       <label>이름</label>
       <input
         name="name"
@@ -30,7 +30,8 @@ function InputUser() {
         onChange={onChange}
         value={username}
       />
-
+      <br />
+      <label>성별</label>
       <RadioInput
         values={[
           { label: '남자', num: '1' },
@@ -39,13 +40,15 @@ function InputUser() {
         name="questionNumber1"
         onClick={handleChange}
       />
-      <NextButton
-        state={state}
-        username={username}
-        presentURL="/"
-        nextURL="/example"
-        label="검사시작"
-      />
+      <div className="navigation">
+        <NextButton
+          state={state}
+          username={username}
+          presentURL="/"
+          nextURL="/example"
+          label="검사시작"
+        />
+      </div>
     </div>
   );
 }
