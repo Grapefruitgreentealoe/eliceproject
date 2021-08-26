@@ -1,29 +1,12 @@
 import React from 'react';
-
-export function RadioInput({ onClick, values, chked}) {
-  return (
-    <div>
-      {values.map((value) => (
-        <div key={value.value} style={{ marginTop: '10px' }}>
-          <input
-            name={value.name}
-            checked={value.value === chked}
-            onClick={onClick}
-            type="radio"
-            value={value.value}
-          />
-          {value.label}
-        </div>
-      ))}
-    </div>
-  );
-}
-
+import {Row} from 'react-bootstrap';
+import "./page-layout.css";
 export function QRadioInput({ onClick, values, chked }) {
   return (
     <div
       style={{
         display: 'flex',
+        flexDirection:"row",
         justifyContent: 'space-around',
         color: 'black',
       }}

@@ -2,16 +2,16 @@ import React, { useState } from 'react';
 
 import PageLayout from '../components/PageLayout';
 import { QRadioInput } from '../components/RadioInput';
-import { NextButton } from '../components/Buttons';
+import { useHistory } from 'react-router';
 import '../components/page-layout.css';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {useHistory} from "react-router-dom";
+import Button from 'react-bootstrap/Button';
 
 function TestExample() {
-  const history = useHistory();
-  const [state, setState] = useState('');
 
+  const [state, setState] = useState('');
+  const history = useHistory();
   const handleChange = (e) => {
     setState(e.target.value);
     console.log(e.target.value);
@@ -50,13 +50,14 @@ function TestExample() {
           </div>
         </div>
         <div className="navigation">
-          <NextButton
+        <Button
+            variant={state ? 'outline-primary' : 'secondary'}
+            onClick={()=>{if(state){history.push('/progress')}}}
             state={state}
-            username="hi"
-            presentURL="/example"
-            nextURL="/progress"
-            label="검사시작"
-          />
+            disabled={state ? false : true}
+          >
+           검사시작
+          </Button>
         </div>
       </PageLayout>
     </>
