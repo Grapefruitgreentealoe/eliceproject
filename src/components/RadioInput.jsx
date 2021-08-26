@@ -1,5 +1,4 @@
 import React from 'react';
-import {Row} from 'react-bootstrap';
 import "./page-layout.css";
 export function QRadioInput({ onClick, values, chked }) {
   return (
