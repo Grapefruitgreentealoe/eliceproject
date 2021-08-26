@@ -1,25 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-import "./page-layout.css"
-import RadioInput from "./RadioInput";
-import {NextButton} from "./Buttons";
+import './page-layout.css';
+import { RadioInput } from './RadioInput';
+import { NextButton } from './Buttons';
+import { useAnswerDispatch } from '../answerContext';
 
 function InputUser() {
-  const [username, setName] = useState("");
-  const [state, setState] = useState("");
+  const dispatch = useAnswerDispatch();
+  const [username, setName] = useState('');
+  const [state, setState] = useState('');
 
   const handleChange = (e) => {
-    setState(e.target.value)
-    console.log(e.target.value)
+    setState(e.target.value);
+    console.log(e.target.value);
   };
 
   const onChange = (e) => {
     setName(e.target.value);
-    
   };
 
+  useEffect(() => {
+    console.log('rendering...');
+    if (username && state) {
+      dispatch({ type: 'USERINFO', payload: [username, state] });
+      console.log(state, username);
+    }
+  }, [username, state]);
+
   return (
-    <div>
+    <div className="container">
       <label>이름</label>
       <input
         name="name"
@@ -27,13 +36,25 @@ function InputUser() {
         onChange={onChange}
         value={username}
       />
-      
-      <RadioInput values={
-    [{label:"남자", num:"1"},{label:"여자",num:"2"}]} 
-    name="questionNumber1" onClick={handleChange} 
-
-/>
-      <NextButton state={state} username={username} presentURL="/" nextURL="/example" label="검사시작"/>
+      <br />
+      <label>성별</label>
+      <RadioInput
+        values={[
+          { label: '남자', num: '1' },
+          { label: '여자', num: '2' },
+        ]}
+        name="questionNumber1"
+        onClick={handleChange}
+      />
+      <div className="navigation">
+        <NextButton
+          state={state}
+          username={username}
+          presentURL="/"
+          nextURL="/example"
+          label="검사시작"
+        />
+      </div>
     </div>
   );
 }
