@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import './page-layout.css';
-import { RadioInput } from './RadioInput';
+import { QRadioInput } from './RadioInput';
 import { NextButton } from './Buttons';
 import { useAnswerDispatch } from '../answerContext';
 
@@ -38,13 +38,13 @@ function InputUser() {
       />
       <br />
       <label>성별</label>
-      <RadioInput
+      <QRadioInput
         values={[
-          { label: '남자', num: '1' },
-          { label: '여자', num: '2' },
+          { label: '남자', value: '1' ,name:"questionNumber1"},
+          { label: '여자', value: '2' ,name:"questionNumber1"},
         ]}
-        name="questionNumber1"
         onClick={handleChange}
+        chked={state}
       />
       <div className="navigation">
         <NextButton

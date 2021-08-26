@@ -8,6 +8,7 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import { useAnswerDispatch } from './answerContext';
+import {useHistory} from "react-router-dom";
 
 async function getQuestion() {
   const response = await axios.get(
@@ -44,7 +45,7 @@ function Questions() {
       const newArr = [...state];
       newArr[question.qitemNo - 1] = Number(e.target.value);
       const result = newArr.length == page * 5 + 5 || newArr.length == len;
-      console.log('[handleChange] result :', result);
+      
       setAllChked(result);
       return newArr;
     });
@@ -52,7 +53,7 @@ function Questions() {
   };
 
   const handleNextButton = (e) => {
-    console.log(allchked, page, e.target.state);
+
     if (allchked) {
       setPage(page + 1);
     }
@@ -65,15 +66,10 @@ function Questions() {
       .slice(page * 5, (page + 1) * 5)
       .filter((el) => !!el).length;
 
-    console.log(
-      '[useEffect]currentCheckStateLength: ',
-      currentCheckStateLength,
-      chkstate,
-      page,
-    );
+   
     if (len && chkstate.length == len) {
       dispatch({ type: 'TESTDATA_SEND', payload: chkstate });
-      console.log('dispatch data', chkstate);
+
     }
 
     setAllChked(

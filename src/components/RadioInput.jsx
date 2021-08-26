@@ -1,16 +1,16 @@
 import React from 'react';
 
-export function RadioInput({ onClick, name, values, state }) {
+export function RadioInput({ onClick, values, chked}) {
   return (
     <div>
       {values.map((value) => (
-        <div key={value.num} style={{ marginTop: '10px' }}>
+        <div key={value.value} style={{ marginTop: '10px' }}>
           <input
-            name={name}
-            defaultChecked={value.num === state}
+            name={value.name}
+            checked={value.value === chked}
             onClick={onClick}
             type="radio"
-            value={value.num}
+            value={value.value}
           />
           {value.label}
         </div>
