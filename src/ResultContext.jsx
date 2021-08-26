@@ -1,10 +1,10 @@
 import React, { useReducer, createContext, useContext } from 'react';
 
 const initialData = {
-  wonscore_arr:"0",
-  jobs:"0",
-  majors:"0",
-  res:"0"
+  wonscore_arr:[],
+  jobs:[],
+  majors:[],
+  res:[1.1]
 };
 
 function resultReducer(state, action) {

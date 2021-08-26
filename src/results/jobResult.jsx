@@ -19,8 +19,8 @@ export default function Job() {
         8: '창의성',
     };
 
-    const res1 = Number(result.res[0]);
-    const res2 = Number(result.res[1]);
+    const res1 = result.res[0];
+    const res2 = result.res[1];
   const getJob = async() =>{
     const result = await axios
     .get(
@@ -30,7 +30,7 @@ export default function Job() {
     const jobs_arr = result.data.map((job)=>job[1]);
 
   dispatch({type:'JOBS',payload:jobs_arr});
-        console.log("jobs_arr:",jobs_arr);
+        console.log("jobs_arr:",jobs_arr, "res:",res1,res2);
     return jobs_arr;
 }
 
