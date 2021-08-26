@@ -47,6 +47,12 @@ export default function WonScore() {
   dispatch({type:'SCORE',payload:wonScore_arr});
   console.log("wonScore_arr:"  ,wonScore_arr)
 
+    wonScore_arr.sort(function(a,b){return b[1] - a[1];});
+    const res1 = wonScore_arr[0][0];
+    const res2 = wonScore_arr[1][0];
+
+    dispatch({type:'RES',payload:[res1,res2]});
+
     return wonScore_arr;
 }
 
@@ -61,8 +67,8 @@ export default function WonScore() {
 
   useEffect(() => {
     reload();
-    console.log(t_data);
-  },[reload,t_data])
+
+  },[wonScore])
 
   if (loading) return <div>로딩중..</div>;
   if (error) return <div>에러가 발생했습니다.</div>;

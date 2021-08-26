@@ -4,8 +4,7 @@ const initialData = {
   wonscore_arr:"0",
   jobs:"0",
   majors:"0",
-  topscore:"0",
-  lowscore:"0",
+  res:"0"
 };
 
 function resultReducer(state, action) {
@@ -22,12 +21,9 @@ function resultReducer(state, action) {
     case 'MAJORS':
       const majors = action.payload;
       return { ...state, majors };
-    case 'TOP':
-      const topscore = action.payload;
-      return { ...state, topscore };
-    case 'LOW':
-      const lowscore = action.payload;
-      return { ...state, lowscore };
+    case 'RES':
+      const res = action.payload;
+      return { ...state, res };
     default:
       return new Error(`Unhandled action type: ${action.type}`);
   }

@@ -1,76 +1,53 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useAsync } from 'react-async';
-import { useAnswerState } from '../answerContext';
+import { useResultState } from '../ResultContext';
 import { useResultDispatch} from '../ResultContext'
 
 
-export default function WonScore() {
-  const t_data = useAnswerState();
-  const dispatch = useResultDispatch();
-  console.log("Wonscore");
-  const getWonScore = async() =>{
+export default function Major() {
+    const dispatch = useResultDispatch();
+
+    const result = useResultState();
+    const res = result.res;
+    const res1 = res[0];
+    const res2 = res[1];
+
+    const getMajor = async() =>{
     const result = await axios
-      .post('https://www.career.go.kr/inspct/openapi/test/report'
-      
-      , 
-      JSON.stringify(
-        {
-        apikey: 'ca115d14dfa918dd56d9172eb0aac33c',
-        qestrnSeq: '6',
-        trgetSe: '100209',
-        name: t_data.name,
-        gender: t_data.gender,
-        grade: '',
-        startDtm: Date.now(),
-        answers: t_data.answers,
-      }
-      ),
-      {
+    .get(
+        `https://www.career.go.kr/inspct/api/psycho/value/majors?no1=${res1}&no2=${res2}`,
+    );
 
-        headers: { "Content-Type": `application/json` }
-    }
-    )
-    .then(
-      async res => 
-      {
-      const seq = res.data.RESULT.url.split("seq=")[1];
-      return await axios
-          .get(`https://www.career.go.kr/inspct/api/psycho/report?seq=${seq}`)
-          .then(res => res.data.result.wonScore.split(" "))
+    const majors_arr = result.data.map((job)=>job[1]);
 
-  }
-  )
-
-      
-  const wonScore_arr = result.map((score)=>score.split("="));
-  dispatch({type:'SCORE',payload:wonScore_arr});
-
-    return wonScore_arr;
+  dispatch({type:'MAJORS',payload:majors_arr});
+        console.log("majors_arr:",majors_arr);
+    return majors_arr;
 }
 
   const {
     loading,
-    data: wonScore,
+    data: majors,
     error,
     reload,
   } = useAsync({
-    promiseFn: getWonScore,
+    promiseFn: getMajor,
   });
 
   useEffect(() => {
     reload();
-    console.log(t_data);
-  },[reload,t_data])
+
+  },[majors])
 
   if (loading) return <div>로딩중..</div>;
   if (error) return <div>에러가 발생했습니다.</div>;
-  if (!wonScore) return null;
+  if (!majors) return null;
 
 
   return (
     <div>
-      {wonScore}
+      {majors}
       </div>
   );
 }
