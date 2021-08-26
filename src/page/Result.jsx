@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PageLayout from '../components/PageLayout';
 import { NextButton } from '../components/Buttons';
+import { useAnswerState } from '../answerContext';
+
 //post로 결과 가져오기
 export default function Result() {
   return (
