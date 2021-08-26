@@ -4,7 +4,7 @@ const initialData = {
   wonscore_arr:[],
   jobs:[],
   majors:[],
-  res:[1.1]
+  res:[1,2]
 };
 
 function resultReducer(state, action) {

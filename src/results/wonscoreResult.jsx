@@ -8,7 +8,6 @@ import { useResultDispatch} from '../ResultContext'
 export default function WonScore() {
   const t_data = useAnswerState();
   const dispatch = useResultDispatch();
-  console.log("Wonscore");
   const getWonScore = async() =>{
     const result = await axios
       .post('https://www.career.go.kr/inspct/openapi/test/report'
@@ -38,6 +37,7 @@ export default function WonScore() {
       return await axios
           .get(`https://www.career.go.kr/inspct/api/psycho/report?seq=${seq}`)
           .then(res => res.data.result.wonScore.split(" "))
+          .catch(e=>console.log(e));
 
   }
   )
@@ -45,7 +45,6 @@ export default function WonScore() {
       
   const wonScore_arr = result.map((score)=>score.split("="));
   dispatch({type:'SCORE',payload:wonScore_arr});
-  console.log("wonScore_arr:"  ,wonScore_arr)
 
     wonScore_arr.sort(function(a,b){return b[1] - a[1];});
     const res1 = wonScore_arr[0][0];

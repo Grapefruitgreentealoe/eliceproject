@@ -12,7 +12,6 @@ function InputUser() {
 
   const handleChange = (e) => {
     setState(e.target.value);
-    console.log(e.target.value);
   };
 
   const onChange = (e) => {
@@ -20,10 +19,8 @@ function InputUser() {
   };
 
   useEffect(() => {
-    console.log('rendering...');
     if (username && state) {
       dispatch({ type: 'USERINFO', payload: [username, state] });
-      console.log(state, username);
     }
   }, [username, state]);
 

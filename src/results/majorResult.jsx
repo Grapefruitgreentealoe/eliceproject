@@ -17,12 +17,11 @@ export default function Major() {
     const result = await axios
     .get(
         `https://www.career.go.kr/inspct/api/psycho/value/majors?no1=${res1}&no2=${res2}`,
-    );
+    ).catch(e=>console.log(e));
 
     const majors_arr = result.data.map((job)=>job[1]);
 
   dispatch({type:'MAJORS',payload:majors_arr});
-        console.log("majors_arr:",majors_arr);
     return majors_arr;
 }
 

@@ -6,18 +6,21 @@ import Test from './page/Test';
 import UserInfo from './page/UserInfo';
 import './App.css';
 import { AnswerProvider } from './answerContext';
-
+import { ResultProvider } from './ResultContext';
 function App() {
   return (
     <AnswerProvider>
+      <ResultProvider>
       <BrowserRouter>
         <Switch>
+
           <Route exact path="/result">
             <Result />
           </Route>
           <Route exact path="/fin">
             <TestFin />
           </Route>
+
           <Route exact path="/example">
             <TestSample />
           </Route>
@@ -29,6 +32,7 @@ function App() {
           </Route>
         </Switch>
       </BrowserRouter>
+      </ResultProvider>
     </AnswerProvider>
   );
 }

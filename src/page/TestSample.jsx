@@ -14,7 +14,6 @@ function TestExample() {
   const history = useHistory();
   const handleChange = (e) => {
     setState(e.target.value);
-    console.log(e.target.value);
   };
   return (
     <>

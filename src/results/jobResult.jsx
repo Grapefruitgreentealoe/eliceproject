@@ -24,13 +24,12 @@ export default function Job() {
   const getJob = async() =>{
     const result = await axios
     .get(
-        `https://www.career.go.kr/inspct/api/psycho/value/jobs?no1=${res1}&no2=${res2}`,
-    );
+        `https://www.career.go.kr/inspct/api/psycho/value/jobs?${res1}&no2=${res2}`,
+    ).catch(e=>console.log(e));
 
     const jobs_arr = result.data.map((job)=>job[1]);
 
   dispatch({type:'JOBS',payload:jobs_arr});
-        console.log("jobs_arr:",jobs_arr, "res:",res1,res2);
     return jobs_arr;
 }
 
