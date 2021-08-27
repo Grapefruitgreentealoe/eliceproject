@@ -9,7 +9,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 
 function TestExample() {
-
   const [state, setState] = useState('');
   const history = useHistory();
   const handleChange = (e) => {
@@ -34,13 +33,13 @@ function TestExample() {
               values={[
                 {
                   label: '능력발휘',
-                  value: "1",
-                  name:"example"
+                  value: '1',
+                  name: 'example',
                 },
                 {
                   label: '자율성',
-                  value: "2",
-                  name:"example"
+                  value: '2',
+                  name: 'example',
                 },
               ]}
               onClick={handleChange}
@@ -49,13 +48,17 @@ function TestExample() {
           </div>
         </div>
         <div className="navigation">
-        <Button
+          <Button
             variant={state ? 'outline-primary' : 'secondary'}
-            onClick={()=>{if(state){history.push('/progress')}}}
+            onClick={() => {
+              if (state) {
+                history.push('/progress');
+              }
+            }}
             state={state}
             disabled={state ? false : true}
           >
-           검사시작
+            검사시작
           </Button>
         </div>
       </PageLayout>

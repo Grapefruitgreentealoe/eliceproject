@@ -18,31 +18,30 @@ export default function ResultDetail() {
     6: '사회봉사',
     7: '자기계발',
     8: '창의성',
-};
-const wonScore_arr = result.res[0].sort(function(a,b){return a[0] - b[0];});
-const jobs_arr = result.jobs;
-const majors_arr = result.majors;
+  };
+  const wonScore_arr = result.res[0].sort(function (a, b) {
+    return a[0] - b[0];
+  });
+  const jobs_arr = result.jobs;
+  const majors_arr = result.majors;
 
   return (
-    
-<div>
-<PageLayout title="직업가치관검사 결과표">
+    <div>
+      <PageLayout title="직업가치관검사 결과표">
+        {!wonScore_arr ? 'hi' : wonScore_arr}
+        {jobs_arr}
+        {majors_arr}
 
-{!wonScore_arr?"hi":wonScore_arr}
-{jobs_arr}
-{majors_arr}
-
-
-<div className="navigation">
-<NextButton
-  state="1"
-  username="hi"
-  presentURL="/progress"
-  nextURL="/"
-  label="다시 검사하기"
-/>
-</div>
-</PageLayout>
-</div>
+        <div className="navigation">
+          <NextButton
+            state="1"
+            username="hi"
+            presentURL="/progress"
+            nextURL="/"
+            label="다시 검사하기"
+          />
+        </div>
+      </PageLayout>
+    </div>
   );
 }

@@ -8,7 +8,7 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import { useAnswerDispatch } from './answerContext';
-import { useHistory } from "react-router-dom"
+import { useHistory } from 'react-router-dom';
 
 async function getQuestion() {
   const response = await axios.get(
@@ -19,8 +19,7 @@ async function getQuestion() {
 }
 
 function Questions() {
-
-  const history=useHistory();
+  const history = useHistory();
   const {
     loading,
     data: questions,
@@ -102,23 +101,21 @@ function Questions() {
             <li key={question.qitemNo} className="question-box">
               {`Q${question.qitemNo}.`}
               {question.question}
-              <p style={{ textAlign: 'center' }}>
-                <QRadioInput
-                  name="question"
-                  values={[
-                    {
-                      label: question.answer01,
-                      value: 1,
-                    },
-                    {
-                      label: question.answer02,
-                      value: 2,
-                    },
-                  ]}
-                  onClick={(e) => handleChange(e, question)}
-                  chked={chkstate[index]}
-                />
-              </p>
+              <QRadioInput
+                name="question"
+                values={[
+                  {
+                    label: question.answer01,
+                    value: 1,
+                  },
+                  {
+                    label: question.answer02,
+                    value: 2,
+                  },
+                ]}
+                onClick={(e) => handleChange(e, question)}
+                chked={chkstate[index]}
+              />
             </li>
           ) : null,
         )}
@@ -149,9 +146,12 @@ function Questions() {
           </Button>
         ) : null}
         {page == 0 ? (
-          <Button variant="outline-primary" onClick={() => history.push('/example')}>
-          이전
-        </Button>
+          <Button
+            variant="outline-primary"
+            onClick={() => history.push('/example')}
+          >
+            이전
+          </Button>
         ) : null}
       </nav>
     </>

@@ -1,18 +1,24 @@
 import React from 'react';
-import "./page-layout.css";
+import './page-layout.css';
 export function QRadioInput({ onClick, values, chked }) {
   return (
     <div
       style={{
         display: 'flex',
-        flexDirection:"row",
+        flexDirection: 'row',
         justifyContent: 'space-around',
         color: 'black',
       }}
     >
       {React.Children.toArray(
         values.map((value) => (
-          <div style={{ marginTop: '5px' ,marginRight:"20px" ,marginLeft:"20px"}}>
+          <div
+            style={{
+              marginTop: '5px',
+              marginRight: '20px',
+              marginLeft: '20px',
+            }}
+          >
             <input
               name={value.name}
               onChange={onClick}
