@@ -6,69 +6,91 @@ import { useResultState } from '../ResultContext';
 import PageLayout from '../components/PageLayout';
 import { NextButton } from '../components/Buttons';
 
+
+const getJobs = (res1, res2) =>
+  axios
+    .get(
+      `https://www.career.go.kr/inspct/api/psycho/value/jobs?no1=${res1}&no2=${res2}`,
+    )
+    .then((res) => res.data)
+    .then((jobs) => jobs.map((job) => job[1]));
+
+const getMajors = (res1, res2) =>
+  axios
+    .get(
+      `https://www.career.go.kr/inspct/api/psycho/value/majors?no1=${res1}&no2=${res2}`,
+    )
+    .then((res) => res.data)
+    .then((data) => data.map((major) => major[1]));
+
+const getWonScore = async (name, gender, answers) => {
+  const wonScore = await axios
+    .post(
+      'https://www.career.go.kr/inspct/openapi/test/report',
+      JSON.stringify({
+        apikey: 'ca115d14dfa918dd56d9172eb0aac33c',
+        qestrnSeq: '6',
+        trgetSe: '100209',
+        name,
+        gender,
+        grade: '',
+        startDtm: Date.now(),
+        answers,
+      }),
+      {
+        headers: { 'Content-Type': `application/json` },
+      },
+    )
+    .then(async (res) => {
+      const seq = res.data.RESULT.url.split('seq=')[1];
+      return await axios
+        .get(`https://www.career.go.kr/inspct/api/psycho/report?seq=${seq}`)
+        .then((res) => res.data.result.wonScore.split(' '));
+    })
+    .then((data) => data.map((score) => score.split('=')));
+};
+
+function useActions() {
+  const dispatch = useResultDispatch();
+
+  const setRes = (wonScoreArr, res1, res2, low1, low2) =>
+    dispatch({ type: 'RES', payload: [wonScoreArr, res1, res2,low1,low2] });
+
+  return { setRes };
+}
+
 export default function Result() {
   const t_data = useAnswerState();
   const dispatch = useResultDispatch();
   const result = useResultState();
-
+const { setRes } = useActions();
   useEffect(() => {
     getResult();
   }, []);
 
   const getResult = async () => {
-    const wonScore = await axios
-      .post(
-        'https://www.career.go.kr/inspct/openapi/test/report',
+    const { name, gender, answers } = t_data;
 
-        JSON.stringify({
-          apikey: 'ca115d14dfa918dd56d9172eb0aac33c',
-          qestrnSeq: '6',
-          trgetSe: '100209',
-          name: t_data.name,
-          gender: t_data.gender,
-          grade: '',
-          startDtm: Date.now(),
-          answers: t_data.answers,
-        }),
-        {
-          headers: { 'Content-Type': `application/json` },
-        },
-      )
-      .then(async (res) => {
-        const seq = res.data.RESULT.url.split('seq=')[1];
-        return await axios
-          .get(`https://www.career.go.kr/inspct/api/psycho/report?seq=${seq}`)
-          .then((res) => res.data.result.wonScore.split(' '));
-      });
-
-    const wonScore_arr = wonScore.map((score) => score.split('='));
+    const wonScore_arr = await getWonScore([name, gender, answers]);
 
     wonScore_arr.sort(function (a, b) {
       return b[1] - a[1];
     });
+
     const res1 = wonScore_arr[0][0];
     const res2 = wonScore_arr[1][0];
-     const low1 = wonScore_arr[6][0];
-      const low2 = wonScore_arr[7][0];
-
-    dispatch({ type: 'RES', payload: [wonScore_arr, res1, res2,low1,low2] });
-
-    const jobs = await axios.get(
-      `https://www.career.go.kr/inspct/api/psycho/value/jobs?no1=${res1}&no2=${res2}`,
-    );
-    const jobs_arr = jobs.data.map((job) => job.splice(1));
-
+    const low1 = wonScore_arr[6][0];
+    const low2 = wonScore_arr[7][0];
+    setRes(wonScore_arr, res1, res2, low1, low2);
+    const jobs_arr = await getJobs(res1, res2);
     dispatch({ type: 'JOBS', payload: jobs_arr });
 
-    const majors = await axios.get(
-      `https://www.career.go.kr/inspct/api/psycho/value/majors?no1=${res1}&no2=${res2}`,
-    );
-    const majors_arr = majors.data.map((major) => major.slice(1));
-
+    const majors_arr = await getMajors(res1, res2);
     dispatch({ type: 'MAJORS', payload: majors_arr });
-
-    if (!wonScore_arr) return null;
   };
+
+
+   
   const jobResItems = {
     1: '능력발휘',
     2: '자율성',
