@@ -14,17 +14,20 @@ export default function Major() {
     const res2 = res[1];
 
     const getMajor = async() =>{
-    const result = await axios
+    const majors = await axios
     .get(
         `https://www.career.go.kr/inspct/api/psycho/value/majors?no1=${res1}&no2=${res2}`,
-    ).catch(e=>console.log(e));
-
-    const majors_arr = result.data.map((job)=>job[1]);
+    )
+    const majors_arr = majors.data.map((job)=>job[1]);
 
   dispatch({type:'MAJORS',payload:majors_arr});
     return majors_arr;
 }
 
+
+    
+
+    
   const {
     loading,
     data: majors,
@@ -36,8 +39,8 @@ export default function Major() {
 
   useEffect(() => {
     reload();
-
-  },[majors])
+    console.log(majors)
+  },[majors,reload])
 
   if (loading) return <div>로딩중..</div>;
   if (error) return <div>에러가 발생했습니다.</div>;

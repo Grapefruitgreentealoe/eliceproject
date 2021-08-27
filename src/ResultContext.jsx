@@ -16,11 +16,11 @@ function resultReducer(state, action) {
         wonscore_arr
       };
     case 'JOBS':
-      const jobs = action.payload;
-      return { ...state, jobs };
+      const jobs_arr = action.payload;
+      return { ...state, jobs:jobs_arr };
     case 'MAJORS':
-      const majors = action.payload;
-      return { ...state, majors };
+      const majors_arr = action.payload;
+      return { ...state, majors:majors_arr };
     case 'RES':
       const res = action.payload;
       return { ...state, res };

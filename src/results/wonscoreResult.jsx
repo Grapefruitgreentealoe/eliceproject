@@ -37,7 +37,7 @@ export default function WonScore() {
       return await axios
           .get(`https://www.career.go.kr/inspct/api/psycho/report?seq=${seq}`)
           .then(res => res.data.result.wonScore.split(" "))
-          .catch(e=>console.log(e));
+          
 
   }
   )
@@ -66,7 +66,7 @@ export default function WonScore() {
 
   useEffect(() => {
     reload();
-
+    console.log(wonScore)
   },[wonScore])
 
   if (loading) return <div>로딩중..</div>;

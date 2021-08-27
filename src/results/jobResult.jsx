@@ -21,18 +21,18 @@ export default function Job() {
 
     const res1 = result.res[0];
     const res2 = result.res[1];
+    
   const getJob = async() =>{
     const result = await axios
     .get(
-        `https://www.career.go.kr/inspct/api/psycho/value/jobs?${res1}&no2=${res2}`,
-    ).catch(e=>console.log(e));
-
+        `https://www.career.go.kr/inspct/api/psycho/value/jobs?no1=${res1}&no2=${res2}`
+    )
     const jobs_arr = result.data.map((job)=>job[1]);
 
-  dispatch({type:'JOBS',payload:jobs_arr});
-    return jobs_arr;
+    dispatch({type:'JOBS',payload:jobs_arr});
+      return jobs_arr;
+  
 }
-
   const {
     loading,
     data: jobs,
@@ -45,7 +45,7 @@ export default function Job() {
   useEffect(() => {
     reload();
 
-  },[jobs])
+  },[jobs,reload])
 
   if (loading) return <div>로딩중..</div>;
   if (error) return <div>에러가 발생했습니다.</div>;

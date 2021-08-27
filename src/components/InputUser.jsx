@@ -27,12 +27,15 @@ function InputUser() {
   return (
     <div className="container">
       <label>이름</label>
+      
       <input
         name="name"
         placeholder="이름을 입력하세요"
         onChange={onChange}
         value={username}
       />
+      {!username? 
+      <p style={{color:"red",padding:"10px"}}>이름을 입력하세요</p>:null}
       <br />
       <label>성별</label>
       <QRadioInput
@@ -43,7 +46,10 @@ function InputUser() {
         onClick={handleChange}
         chked={state}
       />
+      {!state? 
+      <p style={{color:"red",padding:"10px"}}>성별을 고르세요</p>:null}
       <div className="navigation">
+      
         <NextButton
           state={state}
           username={username}
