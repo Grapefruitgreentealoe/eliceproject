@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { QRadioInput } from './components/RadioInput';
 import { useAsync } from 'react-async';
-import { NextButton, PreviousButton } from './components/Buttons';
+import { NextButton } from './components/Buttons';
 import './components/page-layout.css';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -36,10 +36,10 @@ function Questions() {
   const [allchked, setAllChked] = useState(false);
   const dispatch = useAnswerDispatch();
 
-  // eslint-disable-next-line
+  
   const [page, setPage] = useState(0);
   const [percentnum, setPercentNum] = useState(0);
-  // eslint-disable-next-line
+
 
   const handleChange = (e, question) => {
     setChkstate((state) => {
@@ -64,15 +64,16 @@ function Questions() {
     const currentCheckStateLength = chkstate
       .slice(page * 5, (page + 1) * 5)
       .filter((el) => !!el).length;
-    if (len && chkstate.length == len) {
+    if (len && chkstate.length === len) {
       dispatch({ type: 'TESTDATA_SEND', payload: chkstate });
     }
 
     setAllChked(
+
       currentCheckStateLength === 5 ||
         (undefined !== questions &&
-          page == questions.length / 4 - 2 &&
-          currentCheckStateLength == 3),
+          page === questions.length / 4 - 2 &&
+          currentCheckStateLength === 3),
     );
   }, [page, reload, chkstate]);
 
@@ -121,38 +122,45 @@ function Questions() {
         )}
       </ul>
       <nav className="navigation">
-        {page != questions.length / 4 - 2 ? (
-          <Button
-            variant={allchked ? 'outline-primary' : 'secondary'}
-            onClick={handleNextButton}
-            disabled={allchked ? false : true}
-          >
-            다음
-          </Button>
-        ) : null}
-        {page == questions.length / 4 - 2 ? (
-          <NextButton
-            state={allchked}
-            username="hi"
-            presentURL="/progress"
-            nextURL="/fin"
-            label="결과보기"
-          />
-        ) : null}
+        {
+          page !== questions.length / 4 - 2 ? (
+            <Button
+              variant={allchked ? 'outline-primary' : 'secondary'}
+              onClick={handleNextButton}
+              disabled={allchked ? false : true}
+            >
+              다음
+            </Button>
+          ) : null
+        }
+        {
 
+          page === questions.length / 4 - 2 ? (
+            <NextButton
+              state={allchked}
+              username="hi"
+              presentURL="/progress"
+              nextURL="/fin"
+              label="결과보기"
+            />
+          ) : null
+        }
         {page > 0 ? (
           <Button variant="outline-primary" onClick={() => setPage(page - 1)}>
             이전
           </Button>
         ) : null}
-        {page == 0 ? (
-          <Button
-            variant="outline-primary"
-            onClick={() => history.push('/example')}
-          >
-            이전
-          </Button>
-        ) : null}
+
+        {
+          page === 0 ? (
+            <Button
+              variant="outline-primary"
+              onClick={() => history.push('/example')}
+            >
+              이전
+            </Button>
+          ) : null
+        }
       </nav>
     </>
   );

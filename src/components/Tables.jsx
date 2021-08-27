@@ -1,5 +1,6 @@
 import { useResultState } from '../ResultContext';
 import { Table } from 'react-bootstrap';
+import {useState} from "react";
 
 export function ProfileTables({ columns, values }) {
   return (
@@ -16,7 +17,7 @@ export function ProfileTables({ columns, values }) {
         <tr align="center" bgcolor="white">
           {values.map((value) => (
             <td>{value}</td>
-          ))}{' '}
+          ))}
         </tr>
       </tbody>
     </Table>
@@ -26,7 +27,7 @@ export function ProfileTables({ columns, values }) {
 export function JobTables() {
   const result = useResultState();
   const columns = ['분야', '직업'];
-  const job_rows = ['고졸', '대졸', '대학원졸'];
+  const job_rows = ["중졸이하", "고졸", "전문대졸", "대졸", "대학원졸"];
   return (
     <Table>
       <thead>
@@ -39,39 +40,16 @@ export function JobTables() {
 
       <tbody>
         {job_rows.map((row, index) => {
-          if (index == 0)
-            return (
-              <tr align="center" bgcolor="white">
-                <td>{row}</td>
-                <td>
-                  {result.jobs.map((job) => {
-                    return job[1] == 2 ? job[0] : null;
-                  })}
-                </td>
-              </tr>
-            );
-          if (index == 1)
-            return (
-              <tr align="center" bgcolor="white">
-                <td>{row}</td>
-                <td>
-                  {result.jobs.map((job) => {
-                    return job[1] == 4 ? job[0] : null;
-                  })}
-                </td>
-              </tr>
-            );
-          if (index == 2)
-            return (
-              <tr align="center" bgcolor="white">
-                <td>{row}</td>
-                <td>
-                  {result.jobs.map((job) => {
-                    return job[1] == 5 ? job[0] : null;
-                  })}
-                </td>
-              </tr>
-            );
+          return (
+            <tr align="center" bgcolor="white">
+              <td>{row}</td>
+              <td>
+                {result.jobs.map((job) => {
+                  if (job[1] === index) return job[0];
+                }).join("  ")}
+              </td>
+            </tr>
+          );
         })}
       </tbody>
     </Table>
@@ -92,7 +70,7 @@ export function MajorTables() {
   ];
   const columns = ['분야', '직업'];
   return (
-    <Table>
+    <Table >
       <thead>
         <tr align="center" bgcolor="white">
           {columns.map((column) => (
@@ -103,16 +81,16 @@ export function MajorTables() {
 
       <tbody>
         {major_rows.map((row, index) => {
-          return(
-          <tr align="center" bgcolor="white">
-            <td>{row}</td>
-            <td>
-              {result.jobs.map((job) => {
-                  console.log(index,job[1],job[0]);
-                if (job[1] == index) return job[0];
-              })}
-            </td>
-          </tr>);
+          return (
+            <tr align="center" bgcolor="white">
+              <td>{row}</td>
+              <td>
+                {result.majors.map((major) => {
+                  if (major[1] === index) return major[0];
+                }).join(" ")}
+              </td>
+            </tr>
+          );
         })}
       </tbody>
     </Table>

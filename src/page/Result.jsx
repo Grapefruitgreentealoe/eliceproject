@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useAsync } from 'react-async';
 import { useAnswerState } from '../answerContext';
 import { useResultDispatch } from '../ResultContext';
 import { useResultState } from '../ResultContext';
@@ -49,8 +48,10 @@ export default function Result() {
     });
     const res1 = wonScore_arr[0][0];
     const res2 = wonScore_arr[1][0];
+     const low1 = wonScore_arr[6][0];
+      const low2 = wonScore_arr[7][0];
 
-    dispatch({ type: 'RES', payload: [wonScore_arr, res1, res2] });
+    dispatch({ type: 'RES', payload: [wonScore_arr, res1, res2,low1,low2] });
 
     const jobs = await axios.get(
       `https://www.career.go.kr/inspct/api/psycho/value/jobs?no1=${res1}&no2=${res2}`,
@@ -85,12 +86,42 @@ export default function Result() {
   const name = t_data.name;
   const top = jobResItems[result.res[1]];
   const second = jobResItems[result.res[2]];
+  const low1 = jobResItems[result.res[3]];
+  const low2 = jobResItems[result.res[4]];
+
 
   return (
     <PageLayout title="검사가 완료되었습니다.">
-      <span>
-        {name}님의 직업가치관은 {top},{second} 입니다.
-      </span>
+      <div style={{ height: '100px' }}></div>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+        }}
+      >
+        <span>
+          직업가치관이란 직업을 선택할 때 영향을 끼치는 자신만의 믿음과
+          신념입니다.{' '}
+          <p>
+            따라서 여러분의 직업생활과 관련하여 포기하지 않는 무게중심의 역할을
+            한다고 볼 수 있습니다.{' '}
+          </p>
+          <p>
+            직업가치관검사는 여러분이 직업을 선택할 때 상대적으로 어떠한 가치를
+            중요하게 생각하는지를 알려줍니다.
+          </p>
+          또한 본인이 가장 중요하게 생각하는 가치를 충족시켜줄 수 있는 직업에
+          대해 생각해 볼 기회를 제공합니다.
+          <p></p>
+          직업생활과 관련하여 {name}님은 {top}(와)과 {second}(을)를 가장
+          중요하게 생각합니다.
+          <p>
+            반면에, {low1},{low2}은 상대적으로 덜 중요하게 생각합니다.
+          </p>
+        </span>
+      </div>
+      <div style={{ height: '40px' }}></div>
       <div className="navigation">
         <NextButton
           state="1"

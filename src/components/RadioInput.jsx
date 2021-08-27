@@ -19,14 +19,16 @@ export function QRadioInput({ onClick, values, chked }) {
               marginLeft: '20px',
             }}
           >
-            <input
-              name={value.name}
-              onChange={onClick}
-              type="radio"
-              value={value.value}
-              checked={value.value === chked}
-            />
-            <label>{value.label}</label>
+            <label>
+              <input
+                name={value.name}
+                onChange={onClick}
+                type="radio"
+                value={value.value}
+                checked={value.value === chked}
+              />
+              {value.label}
+            </label>
           </div>
         )),
       )}

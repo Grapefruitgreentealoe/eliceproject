@@ -24,8 +24,7 @@ export default function ResultDetail() {
       return a[0] - b[0];
     })
     .slice(1);
-  const jobs_arr = result.jobs;
-  const majors_arr = result.majors;
+
   const name = answer.name;
   const startDtm = new Date(answer.startDtm).toLocaleDateString();
   const gender = answer.gender == '100323' ? '남' : '여';
@@ -52,20 +51,24 @@ export default function ResultDetail() {
     <div>
       <PageLayout title="직업가치관검사 결과표">
         <hr></hr>
+        <div style={{ height: '40px' }}></div>
         <ProfileTables
           columns={profile_row_arr}
           values={[name, gender, startDtm]}
         />
-
-        <h3>직업가치관 결과</h3>
+        <div style={{ height: '40px' }}></div>
+        <h4 style={{ textAlign: 'center' }}>직업가치관 결과</h4>
+        <div style={{ height: '40px' }}></div>
         <Bar
           data={data}
-          width={100}
-          height={50}
+          width={120}
+          height={70}
           options={{ maintainAspectRatio: true }}
         />
-
-        <h3>가치관과 관련이 높은 직업</h3>
+        <div style={{ height: '40px' }}></div>
+        <div style={{ height: '40px' }}></div>
+        <h4 style={{ textAlign: 'center' }}>가치관과 관련이 높은 직업</h4>
+        <div style={{ height: '40px' }}></div>
         <div
           style={{
             backgroundColor: '#b2acfa',
@@ -79,7 +82,8 @@ export default function ResultDetail() {
         </div>
 
         <JobTables />
-
+        <hr></hr>
+        <div style={{ height: '40px' }}></div>
         <div
           style={{
             backgroundColor: '#b2acfa',
@@ -91,7 +95,8 @@ export default function ResultDetail() {
         >
           종사자 평균 전공별
         </div>
-        <MajorTables/>
+        <MajorTables />
+        <hr></hr>
         <div className="navigation">
           <NextButton
             state="1"

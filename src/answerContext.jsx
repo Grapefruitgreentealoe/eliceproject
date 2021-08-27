@@ -18,13 +18,13 @@ function answerReducer(state, action) {
       return {
         ...state,
         name: userinfo[0],
-        gender: userinfo[1] == 1 ? '100323' : '100324',
+        gender: userinfo[1] === 1 ? '100323' : '100324',
       };
     case 'TESTDATA_SEND':
       const answerList = action.payload;
       const answers = answerList
         .map((answer, index) => {
-          return `B${index + 1}=${answer==1?(2*index)+1:(2*index)+2}`;
+          return `B${index + 1}=${answer === 1 ? 2 * index + 1 : 2 * index + 2}`;
         })
         .join(' ');
       return { ...state, answers };
