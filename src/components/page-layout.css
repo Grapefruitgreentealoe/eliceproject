@@ -1,40 +1,41 @@
 @import url(//font.elice.io/EliceDigitalBaeum.css);
 .container {
-    height: 50vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 10vh;
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10vh;
 }
 
 .content {
-    max-width: 80%;
+  max-width: 80%;
 }
 
 .question-box {
-    border: 2px solid #6558f5;
-    background: #b2acfa;
-    color: white;
-    padding: 10px;
-    text-align: center;
-    height: 12vh;
-    width: 100%;
-    margin-top: 2.5vh;
-    margin-right: 5vh;
-    display: flex;
-    flex-direction: column;
-    align-content: center;
+  border: 2px solid #6558f5;
+  background: #b2acfa;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  height: 12vh;
+  width: 100%;
+  margin-top: 2.5vh;
+  margin-right: 5vh;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
 }
 
 .form-container {
-    padding: 40px;
+  padding: 40px;
 }
 
 .navigation {
-    border: #6558f5 1px;
-    color: white;
-    display: flex;
-    justify-content: space-evenly;
-    padding-bottom: 70px;
-    padding-top: 20px;
+  border: #6558f5 1px;
+  color: white;
+  display: flex;
+  justify-content: space-evenly;
+  padding-bottom: 70px;
+  padding-top: 20px;
 }
