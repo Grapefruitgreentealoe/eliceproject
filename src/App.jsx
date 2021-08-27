@@ -1,23 +1,26 @@
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
-import Result from './page/Result';
-import TestFin from './page/TestFin';
+import Result from "./page/Result";
+import ResultDetail from './page/ResultDetail';
 import TestSample from './page/TestSample';
 import Test from './page/Test';
 import UserInfo from './page/UserInfo';
 import './App.css';
 import { AnswerProvider } from './answerContext';
-
+import { ResultProvider } from './ResultContext';
 function App() {
   return (
     <AnswerProvider>
+      <ResultProvider>
       <BrowserRouter>
         <Switch>
+
           <Route exact path="/result">
-            <Result />
+            <ResultDetail />
           </Route>
           <Route exact path="/fin">
-            <TestFin />
+            <Result/>
           </Route>
+
           <Route exact path="/example">
             <TestSample />
           </Route>
@@ -29,6 +32,7 @@ function App() {
           </Route>
         </Switch>
       </BrowserRouter>
+      </ResultProvider>
     </AnswerProvider>
   );
 }

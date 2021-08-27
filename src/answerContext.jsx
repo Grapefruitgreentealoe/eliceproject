@@ -24,7 +24,7 @@ function answerReducer(state, action) {
       const answerList = action.payload;
       const answers = answerList
         .map((answer, index) => {
-          return `B${index + 1}=${answer}`;
+          return `B${index + 1}=${answer==1?(2*index)+1:(2*index)+2}`;
         })
         .join(' ');
       return { ...state, answers };

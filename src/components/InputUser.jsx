@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import './page-layout.css';
-import { RadioInput } from './RadioInput';
+import { QRadioInput } from './RadioInput';
 import { NextButton } from './Buttons';
 import { useAnswerDispatch } from '../answerContext';
 
@@ -12,7 +12,6 @@ function InputUser() {
 
   const handleChange = (e) => {
     setState(e.target.value);
-    console.log(e.target.value);
   };
 
   const onChange = (e) => {
@@ -20,33 +19,37 @@ function InputUser() {
   };
 
   useEffect(() => {
-    console.log('rendering...');
     if (username && state) {
       dispatch({ type: 'USERINFO', payload: [username, state] });
-      console.log(state, username);
     }
   }, [username, state]);
 
   return (
     <div className="container">
       <label>이름</label>
+      
       <input
         name="name"
         placeholder="이름을 입력하세요"
         onChange={onChange}
         value={username}
       />
+      {!username? 
+      <p style={{color:"red",padding:"10px"}}>이름을 입력하세요</p>:null}
       <br />
       <label>성별</label>
-      <RadioInput
+      <QRadioInput
         values={[
-          { label: '남자', num: '1' },
-          { label: '여자', num: '2' },
+          { label: '남자', value: '1' ,name:"questionNumber1"},
+          { label: '여자', value: '2' ,name:"questionNumber1"},
         ]}
-        name="questionNumber1"
         onClick={handleChange}
+        chked={state}
       />
+      {!state? 
+      <p style={{color:"red",padding:"10px"}}>성별을 고르세요</p>:null}
       <div className="navigation">
+      
         <NextButton
           state={state}
           username={username}

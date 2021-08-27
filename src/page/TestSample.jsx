@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 
 import PageLayout from '../components/PageLayout';
-import { RadioInput } from '../components/RadioInput';
-import { NextButton } from '../components/Buttons';
+import { QRadioInput } from '../components/RadioInput';
+import { useHistory } from 'react-router';
 import '../components/page-layout.css';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from 'react-bootstrap/Button';
 
 function TestExample() {
-  const [state, setState] = useState('');
 
+  const [state, setState] = useState('');
+  const history = useHistory();
   const handleChange = (e) => {
     setState(e.target.value);
-    console.log(e.target.value);
   };
   return (
     <>
@@ -28,39 +29,34 @@ function TestExample() {
         </p>
         <div className="question-box">
           두개 가치 중에 자신에게 더 중요한 가치를 선택하세요.
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'space-around',
-              color: 'black',
-              marginTop: '10px',
-            }}
-          >
-            <RadioInput
+          <div>
+            <QRadioInput
               values={[
                 {
                   label: '능력발휘',
-                  num: 1,
+                  value: "1",
+                  name:"example"
                 },
                 {
                   label: '자율성',
-                  num: 2,
+                  value: "2",
+                  name:"example"
                 },
               ]}
               onClick={handleChange}
-              name="example"
+              chked={state}
             />
           </div>
         </div>
         <div className="navigation">
-          <NextButton
+        <Button
+            variant={state ? 'outline-primary' : 'secondary'}
+            onClick={()=>{if(state){history.push('/progress')}}}
             state={state}
-            username="hi"
-            presentURL="/example"
-            nextURL="/progress"
-            label="검사시작"
-          />
+            disabled={state ? false : true}
+          >
+           검사시작
+          </Button>
         </div>
       </PageLayout>
     </>
