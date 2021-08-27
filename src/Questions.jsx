@@ -36,10 +36,8 @@ function Questions() {
   const [allchked, setAllChked] = useState(false);
   const dispatch = useAnswerDispatch();
 
-  
   const [page, setPage] = useState(0);
   const [percentnum, setPercentNum] = useState(0);
-
 
   const handleChange = (e, question) => {
     setChkstate((state) => {
@@ -69,7 +67,6 @@ function Questions() {
     }
 
     setAllChked(
-
       currentCheckStateLength === 5 ||
         (undefined !== questions &&
           page === questions.length / 4 - 2 &&
@@ -122,45 +119,38 @@ function Questions() {
         )}
       </ul>
       <nav className="navigation">
-        {
-          page !== questions.length / 4 - 2 ? (
-            <Button
-              variant={allchked ? 'outline-primary' : 'secondary'}
-              onClick={handleNextButton}
-              disabled={allchked ? false : true}
-            >
-              다음
-            </Button>
-          ) : null
-        }
-        {
-
-          page === questions.length / 4 - 2 ? (
-            <NextButton
-              state={allchked}
-              username="hi"
-              presentURL="/progress"
-              nextURL="/fin"
-              label="결과보기"
-            />
-          ) : null
-        }
         {page > 0 ? (
           <Button variant="outline-primary" onClick={() => setPage(page - 1)}>
             이전
           </Button>
         ) : null}
 
-        {
-          page === 0 ? (
-            <Button
-              variant="outline-primary"
-              onClick={() => history.push('/example')}
-            >
-              이전
-            </Button>
-          ) : null
-        }
+        {page === 0 ? (
+          <Button
+            variant="outline-primary"
+            onClick={() => history.push('/example')}
+          >
+            이전
+          </Button>
+        ) : null}
+        {page !== questions.length / 4 - 2 ? (
+          <Button
+            variant={allchked ? 'outline-primary' : 'secondary'}
+            onClick={handleNextButton}
+            disabled={allchked ? false : true}
+          >
+            다음
+          </Button>
+        ) : null}
+        {page === questions.length / 4 - 2 ? (
+          <NextButton
+            state={allchked}
+            username="hi"
+            presentURL="/progress"
+            nextURL="/fin"
+            label="결과보기"
+          />
+        ) : null}
       </nav>
     </>
   );
