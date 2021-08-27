@@ -12,7 +12,7 @@ export function QRadioInput({ onClick, values, chked }) {
     >
       {React.Children.toArray(
         values.map((value) => (
-          <div style={{ marginTop: '10px' }}>
+          <div style={{ marginTop: '5px' ,marginRight:"20px" ,marginLeft:"20px"}}>
             <input
               name={value.name}
               onChange={onClick}
