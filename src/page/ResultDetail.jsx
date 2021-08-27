@@ -19,7 +19,7 @@ export default function ResultDetail() {
     7: '자기계발',
     8: '창의성',
 };
-const wonScore_arr = result.res[0];
+const wonScore_arr = result.res[0].sort(function(a,b){return a[0] - b[0];});
 const jobs_arr = result.jobs;
 const majors_arr = result.majors;
 

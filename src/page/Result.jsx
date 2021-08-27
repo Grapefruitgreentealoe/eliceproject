@@ -56,6 +56,7 @@ export default function Result() {
     const res2 = wonScore_arr[1][0];
 
     dispatch({type:'RES',payload:[wonScore_arr,res1,res2]});
+
     const jobs = await axios
     .get(
         `https://www.career.go.kr/inspct/api/psycho/value/jobs?no1=${res1}&no2=${res2}`
