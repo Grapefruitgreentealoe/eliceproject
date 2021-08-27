@@ -9,12 +9,6 @@ const initialData = {
 
 function resultReducer(state, action) {
   switch (action.type) {
-    case 'SCORE':
-      const wonscore_arr = action.payload;
-      return {
-        ...state,
-        wonscore_arr
-      };
     case 'JOBS':
       const jobs_arr = action.payload;
       return { ...state, jobs:jobs_arr };
