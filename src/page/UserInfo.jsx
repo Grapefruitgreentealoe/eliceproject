@@ -5,7 +5,7 @@ import InputUser from '../components/InputUser';
 
 export default function UserInfo() {
   return (
-    <PageLayout title="User Setting">
+    <PageLayout title="">
       <div className="form-container">
         <h1>직업가치관검사</h1>
         <InputUser />
