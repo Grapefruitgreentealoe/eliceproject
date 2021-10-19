@@ -4,14 +4,10 @@ import PageLayout from '../components/PageLayout';
 import { NextButton } from '../components/Buttons';
 import '../components/page-layout.css';
 
-
 export default function TestFin() {
-
-  console.log(data.name);
   return (
     <PageLayout title="검사가 완료되었습니다.">
       검사가 완료되었습니다.
-
       <div className="navigation">
         <NextButton
           state="1"
